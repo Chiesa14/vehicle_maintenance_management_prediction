@@ -17,14 +17,14 @@ This project predicts electricity consumption based on various factors like temp
 ### Installation
 1. Clone the repository:
    ```bash
-   git clone https://github.com/Aurumdev952/electricity_prediction_project.git
-   cd electricity_prediction_project
+   git clone https://github.com/Chiesa14/vehicle_maintenance_management_prediction.git
+   cd vehicle_maintenance_management_prediction
    ```
 
 2. Set up a virtual environment:
    ```bash
    python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   source venv/bin/activate
    ```
 
 3. Install dependencies:
@@ -44,7 +44,7 @@ This project predicts electricity consumption based on various factors like temp
 
 6. Set up the database:
    ```bash
-   cd electricity_predictor
+   cd vmms
    python manage.py migrate
    ```
    
@@ -58,23 +58,25 @@ This project predicts electricity consumption based on various factors like temp
 
 ## Usage
 
-### Predict Energy Consumption
-- Visit the homepage and input your data to get a prediction.
+### Predict Maintenance Costs
+- Visit the homepage and input your vehicle details to get a maintenance cost estimate.
 
-### Visualizations
-- Navigate to the **Visualizations** page to explore interactive charts:
-  - Actual vs Predicted
-  - Feature Importance
-  - Consumption by Season, Time of Day, Temperature, and Household Size
+### Analytics Dashboard
+- Navigate to the **Analytics** page to explore interactive insights:
+  - Actual vs Predicted Maintenance Costs
+  - Maintenance Cost Distribution
+  - Feature Importance Analysis
+  - Cost Breakdown by Vehicle Make and Driving Condition
+  - Mileage vs Maintenance Cost Relationship
+  - Vehicle Age vs Maintenance Cost Trends
 
 ### API Endpoints
-- **Predict**: `POST /api/predict/`
-- **Sample Data**: `GET /api/sample-data/`
-- **Feature Importance**: `GET /api/feature-importance/`
+- **Predict Maintenance Cost**: `POST /api/predict/`
+- **Sample Vehicle Data**: `GET /api/sample-data/`
+- **Feature Importance Data**: `GET /api/feature-importance/`
 
 ## Contributing
 Contributions are welcome! Please open an issue or submit a pull request.
 
 ## License
 This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
-
