@@ -9,6 +9,17 @@ body {
     box-shadow: 0 2px 4px rgba(0,0,0,.1);
 }
 
+.container-brand{
+    width: 70%;
+    margin: auto;
+    display: flex;
+}
+.container-brand div {
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+}
+
 .card {
     border: none;
     border-radius: 10px;
@@ -73,4 +84,3 @@ canvas {
     max-width: 100%;
 
 }
-
