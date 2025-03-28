@@ -1,0 +1,152 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Maintenance Predictor</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">Vehicle Maintenance Manager</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/">Predictor</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/visualization/">Analytics</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-dark text-white">
+                        <h3>Vehicle Maintenance Predictor</h3>
+                    </div>
+                    <div class="card-body">
+                        <form id="prediction-form">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="make" class="form-label">Vehicle Make</label>
+                                    <select class="form-select" id="make" name="make" required>
+                                        <option value="Toyota">Toyota</option>
+                                        <option value="Honda">Honda</option>
+                                        <option value="Ford">Ford</option>
+                                        <option value="Chevrolet">Chevrolet</option>
+                                        <option value="BMW">BMW</option>
+                                        <option value="Tesla">Tesla</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="model_year" class="form-label">Model Year</label>
+                                    <input type="number" class="form-control" id="model_year"
+                                           name="model_year" min="2010" max="2024" required>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="engine_type" class="form-label">Engine Type</label>
+                                    <select class="form-select" id="engine_type" name="engine_type" required>
+                                        <option value="gas">Gasoline</option>
+                                        <option value="diesel">Diesel</option>
+                                        <option value="electric">Electric</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="mileage" class="form-label">Mileage (km)</label>
+                                    <input type="number" class="form-control" id="mileage"
+                                           name="mileage" min="0" step="1000" required>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="driving_condition" class="form-label">Driving Condition</label>
+                                    <select class="form-select" id="driving_condition" name="driving_condition" required>
+                                        <option value="city">City</option>
+                                        <option value="highway">Highway</option>
+                                        <option value="mixed">Mixed</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="service_interval" class="form-label">Service Interval (days)</label>
+                                    <input type="number" class="form-control" id="service_interval"
+                                           name="service_interval" min="90" max="365" required>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <label for="days_since_service" class="form-label">Days Since Last Service</label>
+                                    <input type="number" class="form-control" id="days_since_service"
+                                           name="days_since_service" min="0" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="oil_level" class="form-label">Oil Level</label>
+                                    <select class="form-select" id="oil_level" name="oil_level" required>
+                                        <option value="Low">Low</option>
+                                        <option value="Medium">Medium</option>
+                                        <option value="High">High</option>
+                                        <option value="N/A">N/A</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="tire_pressure" class="form-label">Tire Pressure (psi)</label>
+                                    <input type="number" class="form-control" id="tire_pressure"
+                                           name="tire_pressure" min="25" max="40" step="0.1" required>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="brake_wear" class="form-label">Brake Wear (%)</label>
+                                    <input type="number" class="form-control" id="brake_wear"
+                                           name="brake_wear" min="0" max="100" step="0.1" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="fault_codes" class="form-label">Fault Codes</label>
+                                    <input type="number" class="form-control" id="fault_codes"
+                                           name="fault_codes" min="0" required>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-dark w-100">Estimate Maintenance Cost</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-secondary text-white">
+                        <h3>Maintenance Estimate</h3>
+                    </div>
+                    <div class="card-body">
+                        <div id="prediction-result">
+                            <p class="text-center">Submit vehicle details to get estimate</p>
+                        </div>
+                        <div id="prediction-chart" style="height: 300px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/static/js/predictor.js"></script>
+</body>
+</html>
