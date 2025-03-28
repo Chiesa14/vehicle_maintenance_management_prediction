@@ -70,15 +70,7 @@ body {
 
 canvas {
     margin: 0 auto;
-}
-
-
-/*fjdsfslfjlsfjslfjlsd*/
-
-/* Ensure proper chart container sizing */
-
-
-canvas {
     max-width: 100%;
+
 }
 
