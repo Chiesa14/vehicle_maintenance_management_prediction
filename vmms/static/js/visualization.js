@@ -67,34 +67,6 @@ function renderActualVsPredicted(data) {
     });
 }
 
-function renderCostDistribution(data) {
-    const ctx = document.getElementById("cost-distribution-chart");
-    const costs = data.map(d => d.maintenance_cost);
-
-    new Chart(ctx, {
-        type: 'histogram',
-        data: {
-            labels: costs,
-            datasets: [{
-                label: 'Maintenance Cost Distribution',
-                data: costs,
-                backgroundColor: 'rgba(75, 192, 192, 0.5)',
-                borderColor: 'rgba(75, 192, 192, 1)'
-            }]
-        },
-        options: {
-            responsive: true,
-            scales: {
-                x: {
-                    title: { display: true, text: 'Maintenance Cost ($)' },
-                    type: 'linear',
-                    min: 0
-                },
-                y: { title: { display: true, text: 'Frequency' }}
-            }
-        }
-    });
-}
 
 function renderMakeChart(data) {
     const ctx = document.getElementById("make-chart");
@@ -224,6 +196,56 @@ function renderFeatureImportanceChart(data) {
             responsive: true,
             scales: {
                 x: { title: { display: true, text: 'Importance' }}
+            }
+        }
+    });
+}
+
+
+// visualization.js - Update renderCostDistribution function
+function renderCostDistribution(data) {
+    const ctx = document.getElementById("cost-distribution-chart");
+    const costs = data.map(d => d.maintenance_cost);
+
+    // Create bins for histogram
+    const binSize = 200; // $200 intervals
+    const maxCost = Math.ceil(Math.max(...costs) / binSize) * binSize;
+    const bins = Array.from({length: maxCost/binSize}, (_, i) => (i * binSize));
+
+    // Count values in each bin
+    const counts = bins.map((bin, index) => {
+        const nextBin = bins[index + 1] || Infinity;
+        return costs.filter(c => c >= bin && c < nextBin).length;
+    });
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: bins.map(bin => `$${bin}-$${bin + binSize}`),
+            datasets: [{
+                label: 'Maintenance Cost Distribution',
+                data: counts,
+                backgroundColor: 'rgba(75, 192, 192, 0.5)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1,
+                barThickness: 20
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                x: {
+                    title: { display: true, text: 'Maintenance Cost Range ($)' },
+                },
+                y: {
+                    title: { display: true, text: 'Number of Vehicles' },
+                    beginAtZero: true
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                }
             }
         }
     });

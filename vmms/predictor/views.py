@@ -29,10 +29,13 @@ def get_sample_data(request):
 
     if os.path.exists(sample_data_path):
         data = pd.read_csv(sample_data_path)
+
+        # Replace NaN values with None
+        data = data.where(pd.notnull(data), None)
+
         return JsonResponse(data.to_dict(orient='records'), safe=False)
     else:
         return JsonResponse({'error': 'Sample data not found'}, status=404)
-
 
 class PredictMaintenance(APIView):  # Renamed from PredictElectricity
     """API view for making predictions"""
